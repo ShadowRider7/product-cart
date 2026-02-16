@@ -57,7 +57,7 @@ const displayCategories = (categories) => {
   categories.forEach((category) => {
     const categoryButton = document.createElement("div");
     categoryButton.innerHTML = `
-    <button onclick="loadCategoryProducts('${category}')" class="btn btn-outline rounded-full">${category}</button>
+    <button onclick="loadCategoryProducts('${category.replace(/'/g, "\\'")}')" class="btn btn-outline rounded-full">${category}</button>
     `;
 
     categoryContainer.append(categoryButton);
@@ -111,4 +111,5 @@ const displayProductByCategory = (products) => {
     cardContainer.append(card);
   });
 };
+loadProducts();
 loadCategories();
