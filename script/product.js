@@ -2,10 +2,17 @@ const loadProducts = () => {
   url = "https://fakestoreapi.com/products";
   fetch(url)
     .then((res) => res.json())
-    .then((data) => displayProducts(data));
+    .then((data) => {
+      displayProducts(data);
+      const topRatedProducts = data
+        .filter((products) => products.rating.rate >= 4.0)
+        .slice(0, 3);
+      displayTopRatedProducts(topRatedProducts);
+    });
 };
 const displayProducts = (products) => {
   const cardContainer = document.getElementById("productsContainer");
+  if (!cardContainer) return;
   cardContainer.innerHTML = "";
   products.forEach((product) => {
     const card = document.createElement("div");
@@ -43,6 +50,49 @@ const displayProducts = (products) => {
           </div>
         </div>`;
     cardContainer.append(card);
+  });
+};
+const displayTopRatedProducts = (products) => {
+  const trendingContainer = document.getElementById("trending");
+  if (!trendingContainer) return;
+  trendingContainer.innerHTML = "";
+  products.forEach((product) => {
+    const trendingProducts = document.createElement("div");
+    trendingProducts.innerHTML = `
+ <div class="card bg-base-100 shadow-sm">
+          <figure class="bg-blue-100">
+            <img
+              src="${product.image}"
+             class="h-80"
+            />
+          </figure>
+          <div class="m-3">
+            <div class="flex justify-between">
+              <div class="badge bg-blue-100 text-primary font-bold badge-sm">
+                ${product.category}
+              </div>
+              <div class="flex items-center gap-1">
+                <i class="fa-solid fa-star text-warning"></i>
+                <p>${product.rating.rate}(${product.rating.count})</p>
+              </div>
+            </div>
+
+            <p class="font-semibold truncate my-2">
+             ${product.title}
+            </p>
+            <h2 class="font-bold"><span>$</span>${product.price}</h2>
+            <div class="flex justify-between gap-4 my-4">
+              <div class="btn btn-outline">
+                <i class="fa-solid fa-eye"></i> Details
+              </div>
+              <div class="btn btn-outline">
+                <i class="fa-solid fa-cart-shopping"></i> add
+              </div>
+            </div>
+          </div>
+        </div>
+  `;
+    trendingContainer.append(trendingProducts);
   });
 };
 const loadCategories = () => {
