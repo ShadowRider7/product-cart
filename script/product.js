@@ -83,7 +83,7 @@ const displayTopRatedProducts = (products) => {
             </p>
             <h2 class="font-bold"><span>$</span>${product.price}</h2>
             <div class="flex justify-between gap-4 my-4">
-              <div onclick="my_modal_5.showModal()" class="btn btn-outline">
+              <div onclick="my_modal_5.showModal(); loadDetailedProduct(${product.id})" class="btn btn-outline">
                 <i class="fa-solid fa-eye"></i> Details
               </div>
               <div class="btn btn-outline">
@@ -204,7 +204,7 @@ const displayProductByCategory = (products) => {
             </p>
             <h2 class="font-bold"><span>$</span>${product.price}</h2>
             <div class="flex justify-between gap-4 my-4">
-              <div class="btn btn-outline">
+              <div onclick="my_modal_5.showModal(); loadDetailedProduct(${product.id})" class="btn btn-outline">
                 <i class="fa-solid fa-eye"></i> Details
               </div>
               <div class="btn btn-outline">
